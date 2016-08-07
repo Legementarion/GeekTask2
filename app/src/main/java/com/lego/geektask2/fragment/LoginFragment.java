@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -12,9 +13,9 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.lego.geektask2.R;
-import com.lego.geektask2.activity.LoginActivity;
 import com.lego.geektask2.activity.MainActivity;
 
 
@@ -23,13 +24,14 @@ public class LoginFragment extends Fragment {
 
     private EditText inputName, inputPassword;
     private TextInputLayout inputLayoutName, inputLayoutPassword;
-    private Button btnSignUp;
+    private Button btnSignUp, btnRegistr, btnForgot;
+    private FragmentManager manager;
 
     public LoginFragment() {
         // Required empty public constructor
     }
 
-    public static LoginFragment newInstance(String param1, String param2) {
+    public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -50,6 +52,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void init(View view){
+        manager = getChildFragmentManager();
         inputLayoutName = (TextInputLayout) view.findViewById(R.id.input_layout_name);
         inputLayoutPassword = (TextInputLayout) view.findViewById(R.id.input_layout_password);
         inputName = (EditText) view.findViewById(R.id.input_name);
@@ -59,18 +62,44 @@ public class LoginFragment extends Fragment {
         inputPassword.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.password, 0, 0, 0);
         btnSignUp = (Button) view.findViewById(R.id.btn_signup);
+        btnForgot = (Button) view.findViewById(R.id.buttonForgotPass);
+        btnRegistr = (Button) view.findViewById(R.id.buttonRegistration);
+        btnSignUp.setOnClickListener(MyOnClickListener);
+        btnRegistr.setOnClickListener(MyOnClickListener);
+        btnForgot.setOnClickListener(MyOnClickListener);
+
 
         inputName.addTextChangedListener(new MyTextWatcher(inputName));
         inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
-
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                submitForm();
-            }
-        });
     }
 
+
+    private View.OnClickListener MyOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()){
+                case R.id.btn_signup:
+                    submitForm();
+                    break;
+                case R.id.buttonForgotPass:
+                    RecoveryPasswordFragment recoveryPasswordFragment = RecoveryPasswordFragment.newInstance();
+                    Toast.makeText(getContext(), "buttonForgotPass", Toast.LENGTH_SHORT).show();
+                    manager.beginTransaction().replace(R.id.FragmentConteiner, recoveryPasswordFragment).commit();
+                    break;
+                case R.id.buttonRegistration:
+                    RegistrationFragment registrationFragment = RegistrationFragment.newInstance();
+                    Toast.makeText(getContext(),"buttonRegistration", Toast.LENGTH_SHORT).show();
+                    manager.beginTransaction().replace(R.id.FragmentConteiner, registrationFragment).commit();
+                    break;
+                case R.id.buttonFacebook:
+                    break;
+                case R.id.buttonTwiter:
+                    break;
+                case R.id.buttonGoogle:
+                    break;
+            }
+        }
+    };
 
     /**
      * Validating form
@@ -121,12 +150,8 @@ public class LoginFragment extends Fragment {
         private MyTextWatcher(View view) {
             this.view = view;
         }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
         public void afterTextChanged(Editable editable) {
             switch (view.getId()) {

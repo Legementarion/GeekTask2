@@ -28,12 +28,9 @@ public class PageFragment extends Fragment {
 
     private int mPage;
 
-    @Bind(R.id.input_layout_value)
-    TextInputLayout mInputLayoutName;
-    @Bind(R.id.textViewAnswer)
-    TextView mAnswer;
-    @Bind(R.id.input_value)
-    EditText mInputValue;
+    @Bind(R.id.input_layout_value) TextInputLayout mInputLayoutName;
+    @Bind(R.id.textViewAnswer) TextView mAnswer;
+    @Bind(R.id.input_value) EditText mInputValue;
 
     public PageFragment() {
         // Required empty public constructor
