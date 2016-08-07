@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">GeekTask2</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">fragment</string>
+    <string name="recover_password">Please, enter your email to recover your password</string>
     <string name="registration">Registration</string>
     <string name="calculator">Calculator</string>
     <string name="send">Send</string>
