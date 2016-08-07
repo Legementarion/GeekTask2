@@ -1,9 +1,229 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.lego.geektask2.fragment.RegistrationFragment"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:paddingLeft="35dp"
+    android:paddingRight="35dp"
+    android:paddingTop="20dp">
 
 
-</FrameLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewRegistrationTitle"
+            android:textSize="16sp"
+            android:textColor="@color/background"
+            android:text="@string/registration_title"
+            android:gravity="center" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_registration_firstname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="344dp"
+            tools:layout_editor_absoluteY="168dp">
+
+            <EditText
+                android:id="@+id/input_registration_firstname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:maxLines="1"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="11dp"
+                android:textColor="@android:color/white"
+                android:hint="@string/registration_firstname" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_registration_lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="344dp"
+            tools:layout_editor_absoluteY="168dp">
+
+            <EditText
+                android:id="@+id/input_registration_lastname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:maxLines="1"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="11dp"
+                android:textColor="@android:color/white"
+                android:hint="@string/registration_lastname" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_registration_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="344dp"
+            tools:layout_editor_absoluteY="168dp">
+
+            <EditText
+                android:id="@+id/input_registration_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:maxLines="1"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="11dp"
+                android:textColor="@android:color/white"
+                android:hint="@string/registration_email" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_registration_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="344dp"
+            tools:layout_editor_absoluteY="168dp">
+
+            <EditText
+                android:id="@+id/input_registration_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType=""
+                android:paddingLeft="15dp"
+                android:maxLines="1"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="11dp"
+                android:textColor="@android:color/white"
+                android:hint="@string/registration_phone" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewChildren"
+            android:hint="@string/registration_children"
+            android:textColor="@color/background"
+            android:textColorHint="@color/background"
+            android:textSize="24sp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_children_lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="344dp"
+            tools:layout_editor_absoluteY="168dp">
+
+            <EditText
+                android:id="@+id/input_children_lastname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:maxLines="1"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="11dp"
+                android:textColor="@android:color/white"
+                android:hint="@string/registration_lastname"
+                android:textColorHint="@color/background" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_children_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="344dp"
+            tools:layout_editor_absoluteY="168dp">
+
+            <EditText
+                android:id="@+id/input_children_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:maxLines="1"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="11dp"
+                android:textColor="@android:color/white"
+                android:inputType="date"
+                android:hint="@string/registration_date"
+                android:textColorHint="@color/background" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_children_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="344dp"
+            tools:layout_editor_absoluteY="168dp">
+
+            <EditText
+                android:id="@+id/input_children_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:paddingLeft="15dp"
+                android:maxLines="1"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="11dp"
+                android:textColor="@android:color/white"
+                android:hint="@string/registration_login"
+                android:textColorHint="@color/background" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_children_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="344dp"
+            tools:layout_editor_absoluteY="168dp">
+
+            <EditText
+                android:id="@+id/input_children_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:paddingLeft="15dp"
+                android:maxLines="1"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="11dp"
+                android:textColor="@android:color/white"
+                android:hint="@string/registration_password"
+                android:textColorHint="@color/background" />
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:fabSize="mini"
+            app:srcCompat="@color/colorAccent"
+            android:id="@+id/floatingActionButton" />
+
+        <TextView
+            android:text="@string/registration_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewFloatingButton"
+            android:layout_weight="1"
+            android:textColor="@color/background"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -3,6 +3,16 @@
 
     <string name="hello_blank_fragment">fragment</string>
     <string name="recover_password">Please, enter your email to recover your password</string>
+    <string name="registration_title">To book your course please fill in the registration form</string>
+    <string name="registration_firstname">First Name</string>
+    <string name="registration_lastname">Last Name</string>
+    <string name="registration_email">Email</string>
+    <string name="registration_phone">phone</string>
+    <string name="registration_children">Children</string>
+    <string name="registration_login">Login</string>
+    <string name="registration_date">Date of Birthday</string>
+    <string name="registration_password">Password</string>
+    <string name="registration_add">More kids can be added</string>
     <string name="registration">Registration</string>
     <string name="calculator">Calculator</string>
     <string name="send">Send</string>
