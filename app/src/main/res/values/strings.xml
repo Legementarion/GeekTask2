@@ -25,4 +25,5 @@
     <string name="hint_tabs">Enter the number</string>
     <string name="error_large_number">too large number</string>
     <string name="error_pairs_number">Error! Enter only number pairs!</string>
+    <string name="doubleClick_backBtn">Click one more time to exit</string>
 </resources>
