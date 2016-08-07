@@ -1,30 +1,26 @@
 package com.lego.geektask2.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.lego.geektask2.Logic.Task2.FactorialSum;
 import com.lego.geektask2.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PageFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PageFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class PageFragment extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
+public class PageFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
 
     private int mPage;
+    private TextInputLayout mInputLayoutName;
+    private EditText mInputValue;
+    private TextView mAnswer;
 
     public PageFragment() {
         // Required empty public constructor
@@ -47,49 +43,44 @@ public class PageFragment extends Fragment {
 
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_page, container, false);
+        Button btCalculate = (Button) view.findViewById(R.id.buttonCalculate);
+        btCalculate.setOnClickListener(myListener);
+        mInputLayoutName = (TextInputLayout) view.findViewById(R.id.input_layout_value);
+        mInputValue = (EditText) mInputLayoutName.findViewById(R.id.input_name);
+        if (mPage == 3) {
+            mInputLayoutName.setHint("Enter The pairs (Example 13 14 34 56)");
+//            mInputValue.setRawInputType(InputType.TYPE_CLASS_TEXT); error null pointer
+        } else {
+            mInputLayoutName.setHint("Enter the number");
+        }
         return view;
     }
 
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
+    View.OnClickListener myListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (mPage == 1) {
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+            } else if (mPage == 2) {
+                FactorialSum factorialSum = new FactorialSum();
+                mAnswer.setText(factorialSum.start(Integer.valueOf(mInputValue.getText().toString())));
+            } else {
+
+            }
+        }
+    };
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }

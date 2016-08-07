@@ -6,9 +6,9 @@ package com.lego.geektask2.Logic.Task2;
  */
 public class FactorialSum {
 
-    public void start(){
+    public int start(int n){
         long time = System.nanoTime();
-        StringBuilder tmp = new StringBuilder(MyBigInteger.factorial(100).toDecimalString()); //find the required number and converts number to array of numerals
+        StringBuilder tmp = new StringBuilder(MyBigInteger.factorial(n).toDecimalString()); //find the required number and converts number to array of numerals
         System.out.println("Factorial - "+tmp.toString());
         int result = 0;
         for (int i = 0; i < tmp.length(); i++) {
@@ -17,6 +17,7 @@ public class FactorialSum {
 
         System.out.println("Factorial sum - "+result);
         System.out.println("\n Time of execution -" + (System.nanoTime() - time) * (Math.pow(10, -9)) + " \n");
+        return result;
     }
 
 

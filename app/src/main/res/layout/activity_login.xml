@@ -59,7 +59,9 @@
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="11dp"
-                android:hint="@string/hint_name" />
+                android:paddingLeft="15dp"
+                android:maxLines="1"
+                android:textColor="@android:color/white" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -74,9 +76,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="@string/hint_password"
+                android:paddingLeft="15dp"
+                android:maxLines="1"
                 tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="11dp" />
+                tools:layout_editor_absoluteY="11dp"
+                android:textColor="@android:color/white" />
         </android.support.design.widget.TextInputLayout>
 
         <TextView

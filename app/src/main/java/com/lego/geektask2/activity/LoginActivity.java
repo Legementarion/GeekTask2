@@ -26,7 +26,11 @@ public class LoginActivity extends AppCompatActivity {
         inputLayoutName = (TextInputLayout) findViewById(R.id.input_layout_name);
         inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
         inputName = (EditText) findViewById(R.id.input_name);
+        inputName.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.profile, 0, 0, 0);
         inputPassword = (EditText) findViewById(R.id.input_password);
+        inputPassword.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.password, 0, 0, 0);
         btnSignUp = (Button) findViewById(R.id.btn_signup);
 
         inputName.addTextChangedListener(new MyTextWatcher(inputName));
