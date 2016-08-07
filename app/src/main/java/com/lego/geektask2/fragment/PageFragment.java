@@ -3,10 +3,7 @@ package com.lego.geektask2.fragment;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatTextView;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +16,6 @@ import com.lego.geektask2.Logic.Task2.FactorialSum;
 import com.lego.geektask2.Logic.Task3.Pairs;
 import com.lego.geektask2.R;
 
-import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,16 +24,14 @@ import butterknife.ButterKnife;
 
 
 public class PageFragment extends Fragment {
-    public static final String ARG_PAGE = "ARG_PAGE";
+    private static final String ARG_PAGE = "ARG_PAGE";
 
     private int mPage;
 
     @Bind(R.id.input_layout_value)
     TextInputLayout mInputLayoutName;
-
     @Bind(R.id.textViewAnswer)
     TextView mAnswer;
-
     @Bind(R.id.input_value)
     EditText mInputValue;
 
@@ -92,15 +86,19 @@ public class PageFragment extends Fragment {
         btCalculate.setOnClickListener(myListener);
     }
 
-    View.OnClickListener myListener = new View.OnClickListener() {
+    private View.OnClickListener myListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             if (mPage == 1) {
                 Palindrome palindrome = Palindrome.getInstance();
-                mAnswer.setText(palindrome.start());
+                if (!checkLargeNumber(mInputValue.getText().toString())) {
+                    mAnswer.setText(R.string.error_large_number);
+                } else {
+                    mAnswer.setText(palindrome.start(Integer.valueOf(mInputValue.getText().toString())));
+                }
             } else if (mPage == 2) {
                 FactorialSum factorialSum = FactorialSum.getInstance();
-                if (Integer.valueOf(mInputValue.getText().toString()) > 1000) {
+                if (!checkLargeNumber(mInputValue.getText().toString())) {
                     mAnswer.setText(R.string.error_large_number);
                 } else {
                     mAnswer.setText(factorialSum.start(Integer.valueOf(mInputValue.getText().toString())));
@@ -129,9 +127,14 @@ public class PageFragment extends Fragment {
         super.onDetach();
     }
 
-    public static boolean checkWithRegExp(String userNameString) {
+    private boolean checkLargeNumber(String userString) {
+        return Integer.valueOf(userString) <= 1000;
+    }
+
+
+    private boolean checkWithRegExp(String userString) {
         Pattern p = Pattern.compile("(\\d{2}+\\s*){2,}");
-        Matcher m = p.matcher(userNameString);
+        Matcher m = p.matcher(userString);
         return m.matches();
     }
 }

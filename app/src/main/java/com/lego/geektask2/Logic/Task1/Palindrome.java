@@ -12,20 +12,15 @@ public class Palindrome {
         return instance == null ? (instance = new Palindrome()) : instance;
     }
 
-    public String start() {
-        long time = System.nanoTime();      //for time checking
+    public String start(int max) {
         int leftI = 0, rightI = 0,value;
-        int max = 999;  //by condition
         String maxAsStr = Integer.toString( max );
         int maxSize = maxAsStr.length();
         for (int i = max; i > 100; i--) {               //palindrome search start
             for (int j = i - (int)(max/Math.pow( 10,maxSize/2 )) ; j <= i ; j++) {
                 value = i*j;
-
-
                 ArrayList<Integer> digitSequence = new ArrayList<>();
         /*            Converts number to array of numerals          */
-
                 while (value > 0) {
                     digitSequence.add( 0, value % 10 );
                     value /= 10;
@@ -47,10 +42,11 @@ public class Palindrome {
                     leftI--;
                     rightI++;
                     if (leftI < 0) {
-                        System.out.println( "Palindrome - i: " + i + "   J: " + j + "   i*j: ");
-//                        digitSequence.forEach(System.out::print);
-                        System.out.println("\n Time of execution -" + (System.nanoTime() - time) * (Math.pow(10, -9)) + " \n");
-                        return digitSequence.toString();
+                        StringBuilder result = new StringBuilder();
+                        for(int r=0; r<digitSequence.size();r++ ){
+                         result.append(digitSequence.get(r));
+                        }
+                        return result.toString();
                     }
                 }
             }
