@@ -1,29 +1,35 @@
 package com.lego.geektask2.Logic.Task3;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
  * @author Lego on 26.07.2016.
  */
 public class Pairs {
-    ArrayList<Integer[]> checkedList = new ArrayList<>();
 
-    public void start() {
-        long time = System.nanoTime();
-        int[][] pairs = {{1, 4}, {2, 5}, {7, 3}, {4, 6}, {7, 7}};
+    private static Pairs instance;
+    private ArrayList<Integer[]> checkedList = new ArrayList<>();
 
-        for (int i = 0; i < pairs.length; i++) {
-            checkPairs(pairs[i][0], pairs[i][1]);
-        }
-
-        System.out.print("Pairs -");
-        for (Integer[] entry : checkedList) {
-            System.out.print( "("+entry[0] + ", " + entry[1]+"); ");
-        }
-        System.out.println("\n Time of execution - " + (System.nanoTime() - time) * (Math.pow(10, -9)) + " \n - Sorry, I don't know how make it code better");
+    public static Pairs getInstance() {
+        return instance == null ? (instance = new Pairs()) : instance;
     }
 
-    public void checkPairs(int ascending, int descending) {
+    public String start(int[][] pairs) {
+
+        for (int[] pair : pairs) {
+            checkPairs(pair[0], pair[1]);
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (Integer[] entry : checkedList) {
+            result.append("(").append(entry[0]).append(", ").append(entry[1]).append("); ");
+        }
+        return result.toString();
+    }
+
+    private void checkPairs(int ascending, int descending) {
         if (checkedList.size() == 0) {
             Integer[] temp = new Integer[2];
             temp[0] = ascending;

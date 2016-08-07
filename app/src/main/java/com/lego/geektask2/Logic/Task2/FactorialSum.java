@@ -6,18 +6,19 @@ package com.lego.geektask2.Logic.Task2;
  */
 public class FactorialSum {
 
-    public int start(int n){
-        long time = System.nanoTime();
+
+    private static FactorialSum instance;
+    public static FactorialSum getInstance() {
+        return instance == null ? (instance = new FactorialSum()) : instance;
+    }
+
+    public String start(int n){
         StringBuilder tmp = new StringBuilder(MyBigInteger.factorial(n).toDecimalString()); //find the required number and converts number to array of numerals
-        System.out.println("Factorial - "+tmp.toString());
         int result = 0;
         for (int i = 0; i < tmp.length(); i++) {
             result+= Integer.parseInt(tmp.substring(i,i+1));    // sum up all the numbers of array
         }
-
-        System.out.println("Factorial sum - "+result);
-        System.out.println("\n Time of execution -" + (System.nanoTime() - time) * (Math.pow(10, -9)) + " \n");
-        return result;
+        return ""+result;
     }
 
 

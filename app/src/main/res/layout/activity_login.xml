@@ -137,6 +137,12 @@
             tools:layout_editor_absoluteX="102dp"
             tools:layout_editor_absoluteY="0dp" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp" />
 
         <ImageButton
             android:layout_width="58dp"
@@ -150,6 +156,12 @@
             tools:layout_editor_absoluteY="0dp"
             android:contentDescription=""
             tools:ignore="ContentDescription" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp" />
 
         <ImageButton
             android:layout_width="58dp"

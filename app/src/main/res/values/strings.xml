@@ -11,4 +11,8 @@
     <string name="err_msg_password">Wrong password!</string>
     <string name="hint_name">Enter your name</string>
     <string name="hint_password">Enter your password</string>
+    <string name="hint_pairs">Enter The pairs (Example 13 14 34 56)</string>
+    <string name="hint_tabs">Enter the number</string>
+    <string name="error_large_number">too large number</string>
+    <string name="error_pairs_number">Error! Enter only number pairs!</string>
 </resources>

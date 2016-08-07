@@ -7,7 +7,12 @@ import java.util.*;
  */
 public class Palindrome {
 
-    public void start() {
+    private static Palindrome instance;
+    public static Palindrome getInstance() {
+        return instance == null ? (instance = new Palindrome()) : instance;
+    }
+
+    public String start() {
         long time = System.nanoTime();      //for time checking
         int leftI = 0, rightI = 0,value;
         int max = 999;  //by condition
@@ -45,10 +50,11 @@ public class Palindrome {
                         System.out.println( "Palindrome - i: " + i + "   J: " + j + "   i*j: ");
 //                        digitSequence.forEach(System.out::print);
                         System.out.println("\n Time of execution -" + (System.nanoTime() - time) * (Math.pow(10, -9)) + " \n");
-                        return;
+                        return digitSequence.toString();
                     }
                 }
             }
         }
+        return "";
     }
 }
