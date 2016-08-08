@@ -100,7 +100,8 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintVertical_bias="0.52"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            style="@style/MyCustomButtonStyle" />
 
         <Button android:id="@+id/btn_signup"
             android:layout_width="match_parent"
@@ -191,6 +192,9 @@
         app:layout_constraintBottom_toBottomOf="@+id/activity_login"
         android:layout_marginBottom="32dp"
         android:background="@android:color/transparent"
-        android:textAppearance="@style/MyCustomTabTextAppearance" />
+        android:textAppearance="@style/MyCustomTabTextAppearance"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        style="@style/MyCustomButtonStyle" />
 
 </android.support.constraint.ConstraintLayout>
