@@ -1,22 +1,30 @@
 package com.lego.geektask2.activity;
 
 
+import android.accounts.AccountManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 
+import com.google.android.gms.auth.GoogleAuthException;
+import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.lego.geektask2.R;
 import com.lego.geektask2.Utils.MyCallback;
 import com.lego.geektask2.fragment.LoginFragment;
 import com.lego.geektask2.fragment.RecoveryPasswordFragment;
 import com.lego.geektask2.fragment.RegistrationFragment;
+
+import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity implements MyCallback{
 
@@ -25,7 +33,8 @@ public class LoginActivity extends AppCompatActivity implements MyCallback{
     static Context context;
     private LoginFragment loginFragment;
     public static final String SOCIAL_NETWORK_TAG = "SocialIntegrationMain.SOCIAL_NETWORK_TAG";
-
+    private final static String USERINFO_SCOPE =
+            "https://www.googleapis.com/auth/userinfo.profile";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

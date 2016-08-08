@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="344dp"
             tools:layout_editor_absoluteY="60dp"
-            android:theme="@style/TextLabel">
+            >
 
             <EditText
                 android:id="@+id/input_name"
@@ -61,6 +61,7 @@
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="11dp"
                 android:paddingLeft="15dp"
+                android:theme="@style/TextLabel"
                 android:maxLines="1"
                 android:textColor="@android:color/white" />
         </android.support.design.widget.TextInputLayout>
@@ -70,8 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="344dp"
-            tools:layout_editor_absoluteY="168dp"
-            android:theme="@style/TextLabel">
+            tools:layout_editor_absoluteY="168dp">
 
             <EditText
                 android:id="@+id/input_password"
@@ -80,6 +80,7 @@
                 android:inputType="textPassword"
                 android:paddingLeft="15dp"
                 android:maxLines="1"
+                android:theme="@style/TextLabel"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="11dp"
                 android:textColor="@android:color/white" />

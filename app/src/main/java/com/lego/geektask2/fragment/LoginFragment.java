@@ -2,6 +2,7 @@ package com.lego.geektask2.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,23 +21,30 @@ import com.github.gorbin.asne.core.SocialNetwork;
 import com.github.gorbin.asne.core.SocialNetworkManager;
 import com.github.gorbin.asne.core.listener.OnLoginCompleteListener;
 import com.github.gorbin.asne.facebook.FacebookSocialNetwork;
-import com.github.gorbin.asne.googleplus.GooglePlusSocialNetwork;
 import com.github.gorbin.asne.twitter.TwitterSocialNetwork;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.lego.geektask2.R;
 import com.lego.geektask2.Utils.MyCallback;
 import com.lego.geektask2.activity.LoginActivity;
 import com.lego.geektask2.activity.MainActivity;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
-public class LoginFragment extends Fragment  implements SocialNetworkManager.OnInitializationCompleteListener, OnLoginCompleteListener {
+public class LoginFragment extends Fragment  implements SocialNetworkManager.OnInitializationCompleteListener,
+        OnLoginCompleteListener,   GoogleApiClient.OnConnectionFailedListener {
 
-    public static final int TWITTER = 1;
-    public static final int GOOGLEPLUS = 3;
-    public static final int FACEBOOK = 4;
+    private GoogleApiClient mGoogleApiClient;
     private EditText inputName, inputPassword;
     private TextInputLayout inputLayoutName, inputLayoutPassword;
     private Button btnSignUp, btnRegistr, btnForgot;
@@ -44,6 +52,8 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
     private FragmentManager manager;
     private static MyCallback myCallback;
     public static SocialNetworkManager mSocialNetworkManager;
+    private static final int RC_SIGN_IN = 9001;
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -92,7 +102,7 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
         btnTwitter = (ImageButton) view.findViewById(R.id.buttonTwitter);
         btnTwitter.setOnClickListener(loginClick);
         btnGoogle = (ImageButton) view.findViewById(R.id.buttonGoogle);
-        btnGoogle.setOnClickListener(loginClick);
+        btnGoogle.setOnClickListener(MyOnClickListener);
 
         inputName.addTextChangedListener(new MyTextWatcher(inputName));
         inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
@@ -121,10 +131,6 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
             TwitterSocialNetwork twNetwork = new TwitterSocialNetwork(this, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, TWITTER_CALLBACK_URL);
             mSocialNetworkManager.addSocialNetwork(twNetwork);
 
-            //Init and add to manager GooglePlusSocialNetwork
-            GooglePlusSocialNetwork gpNetwork = new GooglePlusSocialNetwork(this);
-            mSocialNetworkManager.addSocialNetwork(gpNetwork);
-
             //Initiate every network from mSocialNetworkManager
             getFragmentManager().beginTransaction().add(mSocialNetworkManager, LoginActivity.SOCIAL_NETWORK_TAG).commit();
             mSocialNetworkManager.setOnInitializationCompleteListener(this);
@@ -137,6 +143,15 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
                 }
             }
         }
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .build();
+
+// Build a GoogleApiClient with access to GoogleSignIn.API and the options above.
+//        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+//                .enableAutoManage(getActivity(), this)
+//                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+//                .build();
     }
 
 
@@ -160,9 +175,6 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
                 case R.id.buttonTwitter:
                     networkId = TwitterSocialNetwork.ID;
                     break;
-                case R.id.buttonGoogle:
-                    networkId = GooglePlusSocialNetwork.ID;
-                    break;
             }
             SocialNetwork socialNetwork = mSocialNetworkManager.getSocialNetwork(networkId);
             if(!socialNetwork.isConnected()) {
@@ -181,7 +193,6 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
     @Override
     public void onLoginSuccess(int socialNetworkID) {
         LoginActivity.hideProgress();
-        Toast.makeText(getActivity(), "SUCCESS: ", Toast.LENGTH_LONG).show();
         submitSocial();
     }
 
@@ -204,6 +215,11 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
                 case R.id.buttonRegistration:
                     myCallback.toRegistration();
                     break;
+                case R.id.buttonGoogle:
+                    Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                    startActivityForResult(signInIntent, RC_SIGN_IN);
+                    break;
+
             }
         }
     };
@@ -253,6 +269,11 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
         if (view.requestFocus()) {
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 
 

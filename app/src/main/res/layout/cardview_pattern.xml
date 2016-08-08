@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewRegistrationTitle"
+            android:textSize="16sp"
+            android:textColor="@color/background"
+            android:gravity="start"
+            android:paddingTop="15dp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_registration_firstname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="344dp"
+            tools:layout_editor_absoluteY="168dp"
+            android:textColorHint="@color/background"
+            android:theme="@style/TextLabel">
+
+            <EditText
+                android:id="@+id/input_registration_firstname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:maxLines="1"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="11dp"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_registration_lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="344dp"
+            tools:layout_editor_absoluteY="168dp"
+            android:textColorHint="@color/background"
+            android:theme="@style/TextLabel">
+
+            <EditText
+                android:id="@+id/input_registration_lastname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:maxLines="1"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="11dp"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_registration_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="344dp"
+            tools:layout_editor_absoluteY="168dp"
+            android:textColorHint="@color/background"
+            android:theme="@style/TextLabel">
+
+            <EditText
+                android:id="@+id/input_registration_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:maxLines="1"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="11dp"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_registration_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="344dp"
+            tools:layout_editor_absoluteY="168dp"
+            android:textColorHint="@color/background"
+            android:theme="@style/TextLabel">
+
+            <EditText
+                android:id="@+id/input_registration_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType=""
+                android:paddingLeft="15dp"
+                android:maxLines="1"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="11dp"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+</LinearLayout>
