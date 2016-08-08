@@ -33,13 +33,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
+            System.exit(0);
         }
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(getApplicationContext(),R.string.doubleClick_backBtn,Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(new Runnable() {
 
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 doubleBackToExitPressedOnce = false;

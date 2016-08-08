@@ -29,37 +29,35 @@ import com.lego.geektask2.activity.LoginActivity;
 import com.lego.geektask2.activity.MainActivity;
 
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.GoogleApiClient;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
-public class LoginFragment extends Fragment  implements SocialNetworkManager.OnInitializationCompleteListener,
-        OnLoginCompleteListener,   GoogleApiClient.OnConnectionFailedListener {
+public class LoginFragment extends Fragment implements SocialNetworkManager.OnInitializationCompleteListener,
+        OnLoginCompleteListener {
 
-    private GoogleApiClient mGoogleApiClient;
+
     private EditText inputName, inputPassword;
     private TextInputLayout inputLayoutName, inputLayoutPassword;
+    private boolean googleSinged;
     private Button btnSignUp, btnRegistr, btnForgot;
     private ImageButton btnFacebook, btnTwitter, btnGoogle;
     private FragmentManager manager;
     private static MyCallback myCallback;
-    public static SocialNetworkManager mSocialNetworkManager;
+    private static GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
+    public static SocialNetworkManager mSocialNetworkManager;
 
     public LoginFragment() {
         // Required empty public constructor
     }
 
-    public static LoginFragment newInstance(MyCallback Callback) {
+    public static LoginFragment newInstance(MyCallback Callback, GoogleApiClient GoogleApiClient) {
         LoginFragment fragment = new LoginFragment();
+        mGoogleApiClient = GoogleApiClient;
         Bundle args = new Bundle();
         myCallback = Callback;
         fragment.setArguments(args);
@@ -80,7 +78,7 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
         return view;
     }
 
-    private void init(View view){
+    private void init(View view) {
         manager = getChildFragmentManager();
         inputLayoutName = (TextInputLayout) view.findViewById(R.id.input_layout_name);
         inputLayoutPassword = (TextInputLayout) view.findViewById(R.id.input_layout_password);
@@ -108,7 +106,7 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
         inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
     }
 
-    private void initSocial(){
+    private void initSocial() {
         mSocialNetworkManager = (SocialNetworkManager) getFragmentManager().findFragmentByTag(LoginActivity.SOCIAL_NETWORK_TAG);
 
         String TWITTER_CONSUMER_KEY = getActivity().getString(R.string.twitter_consumer_key);
@@ -136,22 +134,13 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
             mSocialNetworkManager.setOnInitializationCompleteListener(this);
         } else {
             //if manager exist - get and setup login only for initialized SocialNetworks
-            if(!mSocialNetworkManager.getInitializedSocialNetworks().isEmpty()) {
+            if (!mSocialNetworkManager.getInitializedSocialNetworks().isEmpty()) {
                 List<SocialNetwork> socialNetworks = mSocialNetworkManager.getInitializedSocialNetworks();
                 for (SocialNetwork socialNetwork : socialNetworks) {
                     socialNetwork.setOnLoginCompleteListener(this);
                 }
             }
         }
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestEmail()
-//                .build();
-
-// Build a GoogleApiClient with access to GoogleSignIn.API and the options above.
-//        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
-//                .enableAutoManage(getActivity(), this)
-//                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-//                .build();
     }
 
 
@@ -168,7 +157,7 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
         @Override
         public void onClick(View view) {
             int networkId = 0;
-            switch (view.getId()){
+            switch (view.getId()) {
                 case R.id.buttonFacebook:
                     networkId = FacebookSocialNetwork.ID;
                     break;
@@ -177,8 +166,8 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
                     break;
             }
             SocialNetwork socialNetwork = mSocialNetworkManager.getSocialNetwork(networkId);
-            if(!socialNetwork.isConnected()) {
-                if(networkId != 0) {
+            if (!socialNetwork.isConnected()) {
+                if (networkId != 0) {
                     socialNetwork.requestLogin();
                     LoginActivity.showProgress("Loading");
                 } else {
@@ -205,7 +194,7 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
     private View.OnClickListener MyOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            switch (view.getId()){
+            switch (view.getId()) {
                 case R.id.btn_signup:
                     submitForm();
                     break;
@@ -216,10 +205,14 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
                     myCallback.toRegistration();
                     break;
                 case R.id.buttonGoogle:
-                    Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                    startActivityForResult(signInIntent, RC_SIGN_IN);
+                    if (googleSinged) {
+                        submitSocial();
+                    } else {
+                        googleSinged = true;
+                        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                        startActivityForResult(signInIntent, RC_SIGN_IN);
+                    }
                     break;
-
             }
         }
     };
@@ -228,7 +221,7 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
      * Validating form
      */
     private void submitSocial() {
-        Intent intent = new Intent(getContext(),MainActivity.class);
+        Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
     }
 
@@ -236,7 +229,7 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
         if (!validateName() && !validatePassword()) {
             return;
         }
-        Intent intent = new Intent(getContext(),MainActivity.class);
+        Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
     }
 
@@ -271,12 +264,6 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
         }
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-
     private class MyTextWatcher implements TextWatcher {
 
         private View view;
@@ -284,8 +271,12 @@ public class LoginFragment extends Fragment  implements SocialNetworkManager.OnI
         private MyTextWatcher(View view) {
             this.view = view;
         }
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
 
         public void afterTextChanged(Editable editable) {
             switch (view.getId()) {
