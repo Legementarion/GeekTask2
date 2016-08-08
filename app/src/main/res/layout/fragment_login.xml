@@ -51,7 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="344dp"
-            tools:layout_editor_absoluteY="60dp">
+            tools:layout_editor_absoluteY="60dp"
+            android:theme="@style/TextLabel">
 
             <EditText
                 android:id="@+id/input_name"
@@ -69,7 +70,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="344dp"
-            tools:layout_editor_absoluteY="168dp">
+            tools:layout_editor_absoluteY="168dp"
+            android:theme="@style/TextLabel">
 
             <EditText
                 android:id="@+id/input_password"

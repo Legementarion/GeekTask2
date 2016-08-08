@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.lego.geektask2.R;
+import com.lego.geektask2.Utils.MyCallback;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,14 +28,16 @@ public class RecoveryPasswordFragment extends Fragment {
     @Bind(R.id.editTextRecover) EditText edtRecover;
     @Bind(R.id.input_layout_recover_password) TextInputLayout inputLayoutRecover;
     private FragmentManager manager;
+    private static MyCallback myCallback;
     public RecoveryPasswordFragment() {
         // Required empty public constructor
     }
 
 
-    public static RecoveryPasswordFragment newInstance() {
+    public static RecoveryPasswordFragment newInstance(MyCallback Callback) {
         RecoveryPasswordFragment fragment = new RecoveryPasswordFragment();
         Bundle args = new Bundle();
+        myCallback  = Callback;
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,13 +60,14 @@ public class RecoveryPasswordFragment extends Fragment {
         btnRecover = ButterKnife.findById(view, R.id.buttonRecover);
         edtRecover = ButterKnife.findById(view, R.id.editTextRecover);
         inputLayoutRecover = ButterKnife.findById(view, R.id.input_layout_recover_password);
+        edtRecover.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.email, 0, 0, 0);
         btnRecover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(checkWithRegExp(edtRecover.getText().toString())){
                     Toast.makeText(getContext(), R.string.new_password, Toast.LENGTH_SHORT).show();
-                    LoginFragment loginFragment = LoginFragment.newInstance();
-                    manager.beginTransaction().replace(R.id.FragmentConteiner, loginFragment).commit();
+                    myCallback.backToLogin();
                 }else {
                     inputLayoutRecover.setError(getString(R.string.Incorrect_email));
                 }

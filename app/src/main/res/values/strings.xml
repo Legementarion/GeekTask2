@@ -28,4 +28,5 @@
     <string name="doubleClick_backBtn">Click one more time to exit</string>
     <string name="new_password">New password has been sent to your email</string>
     <string name="Incorrect_email">Incorrect Email</string>
+    <string name="registration_complete">Registration complete</string>
 </resources>

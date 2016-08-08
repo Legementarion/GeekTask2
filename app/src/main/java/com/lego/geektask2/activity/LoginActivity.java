@@ -9,38 +9,43 @@ import android.widget.Toast;
 
 
 import com.lego.geektask2.R;
+import com.lego.geektask2.Utils.MyCallback;
 import com.lego.geektask2.fragment.LoginFragment;
+import com.lego.geektask2.fragment.RecoveryPasswordFragment;
+import com.lego.geektask2.fragment.RegistrationFragment;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements MyCallback{
 
     private FragmentManager manager;
     private boolean doubleBackToExitPressedOnce;
+    private LoginFragment loginFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        LoginFragment loginFragment =  LoginFragment.newInstance();
+        loginFragment =  LoginFragment.newInstance(this);
         manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.FragmentConteiner, loginFragment).commit();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(getApplicationContext(),R.string.doubleClick_backBtn,Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(new Runnable() {
 
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
+
+    @Override
+    public void backToLogin() {
+        manager.beginTransaction().replace(R.id.FragmentConteiner, loginFragment).commit();
     }
 
+    @Override
+    public void toRecover() {
+        RecoveryPasswordFragment recoveryPasswordFragment = RecoveryPasswordFragment.newInstance(this);
+        manager.beginTransaction().replace(R.id.FragmentConteiner, recoveryPasswordFragment).commit();
+    }
+
+    @Override
+    public void toRegistration() {
+        RegistrationFragment registrationFragment = RegistrationFragment.newInstance(this);
+        manager.beginTransaction().replace(R.id.FragmentConteiner, registrationFragment).commit();
+    }
 }

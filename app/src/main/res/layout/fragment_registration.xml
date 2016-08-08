@@ -14,7 +14,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <TextView
             android:layout_width="match_parent"
@@ -30,7 +31,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="344dp"
-            tools:layout_editor_absoluteY="168dp">
+            tools:layout_editor_absoluteY="168dp"
+            android:textColorHint="@color/background"
+            android:layout_weight="1"
+            android:theme="@style/TextLabel">
 
             <EditText
                 android:id="@+id/input_registration_firstname"
@@ -41,7 +45,8 @@
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="11dp"
                 android:textColor="@android:color/white"
-                android:hint="@string/registration_firstname" />
+                android:hint="@string/registration_firstname"
+                android:textSize="14sp" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -49,7 +54,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="344dp"
-            tools:layout_editor_absoluteY="168dp">
+            tools:layout_editor_absoluteY="168dp"
+            android:textColorHint="@color/background"
+            android:layout_weight="1"
+            android:theme="@style/TextLabel">
 
             <EditText
                 android:id="@+id/input_registration_lastname"
@@ -60,7 +68,8 @@
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="11dp"
                 android:textColor="@android:color/white"
-                android:hint="@string/registration_lastname" />
+                android:hint="@string/registration_lastname"
+                android:textSize="14sp" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -68,7 +77,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="344dp"
-            tools:layout_editor_absoluteY="168dp">
+            tools:layout_editor_absoluteY="168dp"
+            android:textColorHint="@color/background"
+            android:layout_weight="1"
+            android:theme="@style/TextLabel">
 
             <EditText
                 android:id="@+id/input_registration_email"
@@ -79,7 +91,8 @@
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="11dp"
                 android:textColor="@android:color/white"
-                android:hint="@string/registration_email" />
+                android:hint="@string/registration_email"
+                android:textSize="14sp" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -87,7 +100,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="344dp"
-            tools:layout_editor_absoluteY="168dp">
+            tools:layout_editor_absoluteY="168dp"
+            android:textColorHint="@color/background"
+            android:layout_weight="1"
+            android:theme="@style/TextLabel">
 
             <EditText
                 android:id="@+id/input_registration_phone"
@@ -99,14 +115,16 @@
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="11dp"
                 android:textColor="@android:color/white"
-                android:hint="@string/registration_phone" />
+                android:hint="@string/registration_phone"
+                android:textSize="14sp" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <TextView
             android:layout_width="match_parent"
@@ -115,14 +133,18 @@
             android:hint="@string/registration_children"
             android:textColor="@color/background"
             android:textColorHint="@color/background"
-            android:textSize="24sp" />
+            android:textSize="18sp"
+            android:paddingTop="15dp" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_children_lastname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="344dp"
-            tools:layout_editor_absoluteY="168dp">
+            tools:layout_editor_absoluteY="168dp"
+            android:textColorHint="@color/background"
+            android:layout_weight="1"
+            android:theme="@style/TextLabel">
 
             <EditText
                 android:id="@+id/input_children_lastname"
@@ -134,7 +156,8 @@
                 tools:layout_editor_absoluteY="11dp"
                 android:textColor="@android:color/white"
                 android:hint="@string/registration_lastname"
-                android:textColorHint="@color/background" />
+                android:textColorHint="@color/background"
+                android:textSize="14sp" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -142,7 +165,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="344dp"
-            tools:layout_editor_absoluteY="168dp">
+            tools:layout_editor_absoluteY="168dp"
+            android:textColorHint="@color/background"
+            android:layout_weight="1"
+            android:theme="@style/TextLabel">
 
             <EditText
                 android:id="@+id/input_children_date"
@@ -155,7 +181,8 @@
                 android:textColor="@android:color/white"
                 android:inputType="date"
                 android:hint="@string/registration_date"
-                android:textColorHint="@color/background" />
+                android:textColorHint="@color/background"
+                android:textSize="14sp" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -163,7 +190,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="344dp"
-            tools:layout_editor_absoluteY="168dp">
+            tools:layout_editor_absoluteY="168dp"
+            android:textColorHint="@color/background"
+            android:layout_weight="1"
+            android:theme="@style/TextLabel">
 
             <EditText
                 android:id="@+id/input_children_login"
@@ -176,7 +206,8 @@
                 tools:layout_editor_absoluteY="11dp"
                 android:textColor="@android:color/white"
                 android:hint="@string/registration_login"
-                android:textColorHint="@color/background" />
+                android:textColorHint="@color/background"
+                android:textSize="14sp" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -184,7 +215,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="344dp"
-            tools:layout_editor_absoluteY="168dp">
+            tools:layout_editor_absoluteY="168dp"
+            android:textColorHint="@color/background"
+            android:layout_weight="1"
+            android:theme="@style/TextLabel">
 
             <EditText
                 android:id="@+id/input_children_password"
@@ -197,7 +231,9 @@
                 tools:layout_editor_absoluteY="11dp"
                 android:textColor="@android:color/white"
                 android:hint="@string/registration_password"
-                android:textColorHint="@color/background" />
+                android:textColorHint="@color/background"
+                android:textSize="14sp"
+                android:textColorHighlight="@color/background" />
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
@@ -205,16 +241,18 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1">
 
         <android.support.design.widget.FloatingActionButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            app:fabSize="mini"
-            app:srcCompat="@color/colorAccent"
-            android:id="@+id/floatingActionButton" />
+
+            android:id="@+id/floatingActionButtonAdd"
+            app:srcCompat="@drawable/plus"
+            app:fabSize="mini" />
 
         <TextView
             android:text="@string/registration_add"
@@ -225,5 +263,17 @@
             android:textColor="@color/background"
             android:layout_marginLeft="10dp" />
     </LinearLayout>
+
+    <Button
+        android:text="@string/send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonRegistrationSend"
+        android:background="@color/colorAccent"
+        android:layout_weight="1"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:minHeight="69dp"
+        android:textColor="@color/background" />
 
 </LinearLayout>

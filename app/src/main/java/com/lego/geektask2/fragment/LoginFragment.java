@@ -2,6 +2,7 @@ package com.lego.geektask2.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.lego.geektask2.R;
+import com.lego.geektask2.Utils.MyCallback;
 import com.lego.geektask2.activity.MainActivity;
 
 
@@ -26,14 +28,16 @@ public class LoginFragment extends Fragment {
     private TextInputLayout inputLayoutName, inputLayoutPassword;
     private Button btnSignUp, btnRegistr, btnForgot;
     private FragmentManager manager;
+    private static MyCallback myCallback;
 
     public LoginFragment() {
         // Required empty public constructor
     }
 
-    public static LoginFragment newInstance() {
+    public static LoginFragment newInstance(MyCallback Callback) {
         LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();
+        myCallback = Callback;
         fragment.setArguments(args);
         return fragment;
     }
@@ -82,14 +86,10 @@ public class LoginFragment extends Fragment {
                     submitForm();
                     break;
                 case R.id.buttonForgotPass:
-                    RecoveryPasswordFragment recoveryPasswordFragment = RecoveryPasswordFragment.newInstance();
-                    Toast.makeText(getContext(), "buttonForgotPass", Toast.LENGTH_SHORT).show();
-                    manager.beginTransaction().replace(R.id.FragmentConteiner, recoveryPasswordFragment).commit();
+                    myCallback.toRecover();
                     break;
                 case R.id.buttonRegistration:
-                    RegistrationFragment registrationFragment = RegistrationFragment.newInstance();
-                    Toast.makeText(getContext(),"buttonRegistration", Toast.LENGTH_SHORT).show();
-                    manager.beginTransaction().replace(R.id.FragmentConteiner, registrationFragment).commit();
+                    myCallback.toRegistration();
                     break;
                 case R.id.buttonFacebook:
                     break;
@@ -164,7 +164,6 @@ public class LoginFragment extends Fragment {
             }
         }
     }
-
 
     @Override
     public void onDetach() {
