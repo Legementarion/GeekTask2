@@ -72,7 +72,6 @@ public class RegistrationFragment extends Fragment {
                     submitForm();
                     break;
                 case R.id.floatingActionButtonAdd:
-
                     break;
             }
         }

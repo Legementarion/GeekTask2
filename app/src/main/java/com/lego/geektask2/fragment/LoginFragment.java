@@ -2,7 +2,6 @@ package com.lego.geektask2.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,22 +13,37 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.github.gorbin.asne.core.SocialNetwork;
+import com.github.gorbin.asne.core.SocialNetworkManager;
+import com.github.gorbin.asne.core.listener.OnLoginCompleteListener;
+import com.github.gorbin.asne.facebook.FacebookSocialNetwork;
+import com.github.gorbin.asne.googleplus.GooglePlusSocialNetwork;
+import com.github.gorbin.asne.twitter.TwitterSocialNetwork;
 import com.lego.geektask2.R;
 import com.lego.geektask2.Utils.MyCallback;
+import com.lego.geektask2.activity.LoginActivity;
 import com.lego.geektask2.activity.MainActivity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class LoginFragment extends Fragment {
 
+public class LoginFragment extends Fragment  implements SocialNetworkManager.OnInitializationCompleteListener, OnLoginCompleteListener {
 
+    public static final int TWITTER = 1;
+    public static final int GOOGLEPLUS = 3;
+    public static final int FACEBOOK = 4;
     private EditText inputName, inputPassword;
     private TextInputLayout inputLayoutName, inputLayoutPassword;
     private Button btnSignUp, btnRegistr, btnForgot;
+    private ImageButton btnFacebook, btnTwitter, btnGoogle;
     private FragmentManager manager;
     private static MyCallback myCallback;
-
+    public static SocialNetworkManager mSocialNetworkManager;
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -52,6 +66,7 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         init(view);
+        initSocial();
         return view;
     }
 
@@ -72,11 +87,109 @@ public class LoginFragment extends Fragment {
         btnRegistr.setOnClickListener(MyOnClickListener);
         btnForgot.setOnClickListener(MyOnClickListener);
 
+        btnFacebook = (ImageButton) view.findViewById(R.id.buttonFacebook);
+        btnFacebook.setOnClickListener(loginClick);
+        btnTwitter = (ImageButton) view.findViewById(R.id.buttonTwitter);
+        btnTwitter.setOnClickListener(loginClick);
+        btnGoogle = (ImageButton) view.findViewById(R.id.buttonGoogle);
+        btnGoogle.setOnClickListener(loginClick);
 
         inputName.addTextChangedListener(new MyTextWatcher(inputName));
         inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
     }
 
+    private void initSocial(){
+        mSocialNetworkManager = (SocialNetworkManager) getFragmentManager().findFragmentByTag(LoginActivity.SOCIAL_NETWORK_TAG);
+
+        String TWITTER_CONSUMER_KEY = getActivity().getString(R.string.twitter_consumer_key);
+        String TWITTER_CONSUMER_SECRET = getActivity().getString(R.string.twitter_consumer_secret);
+        String TWITTER_CALLBACK_URL = "oauth://ASNE";
+
+        ArrayList<String> fbScope = new ArrayList<String>();
+        fbScope.addAll(Arrays.asList("public_profile, email, user_friends"));
+
+
+        //Check if manager exist
+        if (mSocialNetworkManager == null) {
+            mSocialNetworkManager = new SocialNetworkManager();
+
+            //Init and add to manager FacebookSocialNetwork
+            FacebookSocialNetwork fbNetwork = new FacebookSocialNetwork(this, fbScope);
+            mSocialNetworkManager.addSocialNetwork(fbNetwork);
+
+            //Init and add to manager TwitterSocialNetwork
+            TwitterSocialNetwork twNetwork = new TwitterSocialNetwork(this, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, TWITTER_CALLBACK_URL);
+            mSocialNetworkManager.addSocialNetwork(twNetwork);
+
+            //Init and add to manager GooglePlusSocialNetwork
+            GooglePlusSocialNetwork gpNetwork = new GooglePlusSocialNetwork(this);
+            mSocialNetworkManager.addSocialNetwork(gpNetwork);
+
+            //Initiate every network from mSocialNetworkManager
+            getFragmentManager().beginTransaction().add(mSocialNetworkManager, LoginActivity.SOCIAL_NETWORK_TAG).commit();
+            mSocialNetworkManager.setOnInitializationCompleteListener(this);
+        } else {
+            //if manager exist - get and setup login only for initialized SocialNetworks
+            if(!mSocialNetworkManager.getInitializedSocialNetworks().isEmpty()) {
+                List<SocialNetwork> socialNetworks = mSocialNetworkManager.getInitializedSocialNetworks();
+                for (SocialNetwork socialNetwork : socialNetworks) {
+                    socialNetwork.setOnLoginCompleteListener(this);
+                }
+            }
+        }
+    }
+
+
+    @Override
+    public void onSocialNetworkManagerInitialized() {
+        //when init SocialNetworks - get and setup login only for initialized SocialNetworks
+        for (SocialNetwork socialNetwork : mSocialNetworkManager.getInitializedSocialNetworks()) {
+            socialNetwork.setOnLoginCompleteListener(this);
+        }
+    }
+
+
+    private View.OnClickListener loginClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int networkId = 0;
+            switch (view.getId()){
+                case R.id.buttonFacebook:
+                    networkId = FacebookSocialNetwork.ID;
+                    break;
+                case R.id.buttonTwitter:
+                    networkId = TwitterSocialNetwork.ID;
+                    break;
+                case R.id.buttonGoogle:
+                    networkId = GooglePlusSocialNetwork.ID;
+                    break;
+            }
+            SocialNetwork socialNetwork = mSocialNetworkManager.getSocialNetwork(networkId);
+            if(!socialNetwork.isConnected()) {
+                if(networkId != 0) {
+                    socialNetwork.requestLogin();
+                    LoginActivity.showProgress("Loading");
+                } else {
+                    Toast.makeText(getActivity(), "Wrong networkId", Toast.LENGTH_LONG).show();
+                }
+            } else {
+                submitSocial();
+            }
+        }
+    };
+
+    @Override
+    public void onLoginSuccess(int socialNetworkID) {
+        LoginActivity.hideProgress();
+        Toast.makeText(getActivity(), "SUCCESS: ", Toast.LENGTH_LONG).show();
+        submitSocial();
+    }
+
+    @Override
+    public void onError(int socialNetworkID, String requestID, String errorMessage, Object data) {
+        LoginActivity.hideProgress();
+        Toast.makeText(getActivity(), "ERROR: " + errorMessage, Toast.LENGTH_LONG).show();
+    }
 
     private View.OnClickListener MyOnClickListener = new View.OnClickListener() {
         @Override
@@ -91,12 +204,6 @@ public class LoginFragment extends Fragment {
                 case R.id.buttonRegistration:
                     myCallback.toRegistration();
                     break;
-                case R.id.buttonFacebook:
-                    break;
-                case R.id.buttonTwiter:
-                    break;
-                case R.id.buttonGoogle:
-                    break;
             }
         }
     };
@@ -104,6 +211,11 @@ public class LoginFragment extends Fragment {
     /**
      * Validating form
      */
+    private void submitSocial() {
+        Intent intent = new Intent(getContext(),MainActivity.class);
+        startActivity(intent);
+    }
+
     private void submitForm() {
         if (!validateName() && !validatePassword()) {
             return;
@@ -142,6 +254,7 @@ public class LoginFragment extends Fragment {
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
+
 
     private class MyTextWatcher implements TextWatcher {
 

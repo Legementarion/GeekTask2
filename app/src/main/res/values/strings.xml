@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">GeekTask2</string>
+    <string name="facebook_app_id">282559228774275</string>
 
     <string name="hello_blank_fragment">fragment</string>
     <string name="recover_password">Please, enter your email to recover your password</string>
@@ -29,4 +30,6 @@
     <string name="new_password">New password has been sent to your email</string>
     <string name="Incorrect_email">Incorrect Email</string>
     <string name="registration_complete">Registration complete</string>
+    <string name="twitter_consumer_key">S4OXWTC3uYrKNrFl83mD41XRm</string>
+    <string name="twitter_consumer_secret">tvIXx6J76DqarySSW9uxbpyFn5nJOC9xuann9yvyBJjFKoOyUl</string>
 </resources>
