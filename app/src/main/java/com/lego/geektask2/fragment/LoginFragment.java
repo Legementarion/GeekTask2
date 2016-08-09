@@ -226,11 +226,10 @@ public class LoginFragment extends Fragment implements SocialNetworkManager.OnIn
     }
 
     private void submitForm() {
-        if (!validateName() && !validatePassword()) {
-            return;
+        if (validateName() && validatePassword()) {
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
         }
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        startActivity(intent);
     }
 
     private boolean validateName() {
